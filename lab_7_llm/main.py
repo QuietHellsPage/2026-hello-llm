@@ -170,7 +170,7 @@ class LLMPipeline(AbstractLLMPipeline):
         if self._model is None:
             return None
 
-        return self._infer_batch([sample])[0]
+        return cast(str, self._infer_batch([sample])[0])
 
     @report_time
     def infer_dataset(self) -> pd.DataFrame:
