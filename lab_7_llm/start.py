@@ -47,15 +47,15 @@ def main() -> None:
         device=DEVICE,
     )
 
-    preds = pipeline.infer_dataset()
+    result = pipeline.infer_dataset()
     PREDS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    preds.to_csv(PREDS_PATH, index=False)
+    result.to_csv(PREDS_PATH, index=False)
 
     task_evaluator = TaskEvaluator(data_path=PREDS_PATH, metrics=settings.parameters.metrics)
 
     print(f"Inference metrics: {task_evaluator.run()}")
 
-    assert preds is not None, "Pipeline does not work correctly"
+    assert result is not None, "Pipeline does not work correctly"
 
 
 if __name__ == "__main__":
