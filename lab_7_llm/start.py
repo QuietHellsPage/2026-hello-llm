@@ -47,6 +47,8 @@ def main() -> None:
         device=DEVICE,
     )
 
+    print(pipeline.infer_sample(dataset[33]))
+
     result = pipeline.infer_dataset()
     PREDS_PATH.parent.mkdir(parents=True, exist_ok=True)
     result.to_csv(PREDS_PATH, index=False)

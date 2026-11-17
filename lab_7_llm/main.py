@@ -154,7 +154,11 @@ class LLMPipeline(AbstractLLMPipeline):
         """
         super().__init__(model_name, dataset, max_length, batch_size, device)
         self._tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self._model = AutoModelForTokenClassification.from_pretrained(model_name).to(device).eval()
+        self._model = (
+            AutoModelForTokenClassification.from_pretrained(model_name, dtype=torch.float32)
+            .to(device)
+            .eval()
+        )
 
     @report_time
     def infer_sample(self, sample: tuple[str, ...]) -> str | None:
